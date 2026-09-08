@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>cazino</title>
+
 </head>
 <body>
     <h1>cazino</h1>
+    <div>
+        <form action='/exeat' method="GET">
+            <button type = 'submit'>вход</button>
+        </form>
+    </div>
     <h2>{{ users_name }}</h2>
     <h3>{{ depzit }}$</h3>
+    
+    
     {% if first %}
         <div id='slots' style = 'font-size: 24px; margin-top: 15px;'>
             {{first}}{{second}}{{thir}}
@@ -15,6 +23,9 @@
     {% endif %}
     <br>
     <form action="/send" method="GET">
+        <label for = 'bid'>ставка</label>
+        <input type='number' id='bid' name='bid' placeholder='ставка' value='10' max='{{depzit}}' required > 
+        <br>
         <button type = 'submit'>крутить</button>
     </form>
     
@@ -26,7 +37,7 @@
             {% endif %}
         {% endwith %}
 
-    {% if messeges %}    
+    {% if depzit == 0 %}    
         <div>
             <form action='/plus_depzit' method="GET">
                 <button type = 'submit'>Получить 1000$ бесплатно</button>
