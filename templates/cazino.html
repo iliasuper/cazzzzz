@@ -29,10 +29,10 @@
         <button type = 'submit'>крутить</button>
     </form>
     
-        {%with messeges = get_flashed_messages() %}
-            {% if masseges %}
-                {% for massege in masseges %}
-                    <p>{{ massege }}</p>
+        {%with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
                 {% endfor %}
             {% endif %}
         {% endwith %}
