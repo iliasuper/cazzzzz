@@ -10,8 +10,15 @@ def save_depzit(email, depzit):
     file_path = os.path.join(folder_name, 'credentials.txt')
     
     if os.path.exists(file_path):
-        with open(file_path, 'a', encoding='utf-8') as f:
-            f.write(f'depzit: {depzit}\n')
+        lines = []
+        with open(file_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                if not line.strip().lower().startswith('depzit: '):
+                    lines.append(line)
+            lines.append(f'depzit: {depzit}')
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.writelines(lines)
+        
                 
 @app.route('/')
 def index_():
@@ -97,26 +104,42 @@ def cazino():
     depzit = session.get('depzit', 1000)
     return render_template('cazino.html', depzit=depzit, user_name=user_name)
 
+@app.route('/exeat', methods=['GET'])
+def exeat():
+    return render_template('login.html')
+
 @app.route('/send', methods=['GET'])
 def send():
     depzit = int(session.get('depzit', 1000))
     user_name = session.get('user_name', 'Игрок')
     user_email = session.get('user_email')
+    try:
+        bid = int(request.args.get('bid', 10))
+    except ValueError:
+        flash('введите корректную число')
+        return render_template('cazino.html', depzit=depzit, users_name=user_name)
+    if bid <= 0:
+        flash('ставка должна быть больше 0')
+        return render_template('cazino.html', depzit=depzit, users_name=user_name)
+    elif bid > depzit:
+        flash('у вас недостаточно денег')
+        return render_template('cazino.html', depzit=depzit, users_name=user_name)
     
-    if depzit < 50:
+    if depzit == 0:
         flash('у вас закачиваются денги')
-        return render_template(cazino.html, depzit=depzit, users_name=session.get('user_name', 'Игрок'))
+        return render_template('cazino.html', depzit=depzit, users_name=session.get('user_name', 'Игрок'))
     
     list_slots = ['🎁','❤','🌹']
     first = random.choice(list_slots)
     second = random.choice(list_slots)
     thir = random.choice(list_slots)
     if first == second == thir:
+        
         flash('джекпот!!! поздравляю! вы визунчик')
-        depzit += 200
+        depzit += bid*4
     else:
         flash('эх, попробуйте еще раз')
-        depzit -= 50
+        depzit -= bid
     session['depzit'] = depzit
     if user_email:
         save_depzit(user_email, depzit)
@@ -127,21 +150,16 @@ def plus_depzit():
     depzit = int(session.get('depzit', 1000))
     user_name = session.get('user_name', 'Игрок')
     email = session.get('user_email')
-    new_depzit = 1000
     if depzit == 0:
-        depzit = new_depzit
+        depzit = 1000
         session['depzit'] = depzit
         if email:
-            folder_name = email.replace('@', '_').replace('.', '_')
-            file_path = os.path.join(folder_name, 'credentials.txt')
-            if os.path.exists(file_path):
-                with open(file_path, 'a', encoding='utf-8') as f:
-                    f.write(f'depzit: {new_depzit}\n')
-        flash('успешно попонено')
-        return render_template('cazino.html', depzit=depzit, users_name=user_name)
+            save_depzit(email, depzit)
+            flash('успешно попонено')
     else:
         flash('нужно дойти до нуля')
-        return render_template('cazino.html', depzit=depzit, users_name=user_name)
+    
+    return render_template('cazino.html', depzit=depzit, users_name=user_name)
     
 
 if __name__ == '__main__':
