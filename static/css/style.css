@@ -1,0 +1,97 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at center, #1a1c23 0%, #0d0e12 100%);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.casino-card {
+  background: rgba(25, 28, 36, 0.9);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  max-width: 380px;
+  width: 90%;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: linear-gradient(45deg, #ffe066, #f5b041);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
+}
+.subtitle {
+  color: #8a90a6;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+.input-group label {
+  display: block;
+  font-size: 12px;
+  color: #8a90a6;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.input-group input {
+  width: 100%;
+  padding: 12px 14px;
+  background: #12141a;
+  border: 1px solid #2c313f;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: all 0.3s;
+}
+.input-group input:focus {
+  outline: none;
+  border-color: #f5b041;
+}
+.btn-action {
+  width: 100%;
+  background: linear-gradient(90deg, #2ecc71, #27ae60);
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+  transition: transform 0.2s;
+}
+.btn-action:hover {
+  transform: translateY(-1px);
+}
+.link-reg {
+  display: inline-block;
+  margin-top: 20px;
+  color: #8a90a6;
+  text-decoration: none;
+  font-size: 14px;
+}
+.link-reg:hover {
+  color: #f5b041;
+}
+.submit-btn:hover {
+  background-color: #ffc93c; /* Немного меняем цвет на более яркий */
+  transform: scale(1.05);    /* Увеличиваем кнопку на 5% */
+}
+.login-link {
+  color: #ffffff;
+  font-size: 14px;
+  text-align: left; /* Прижимаем к левому краю */
+  margin-top: 5px;
+}
