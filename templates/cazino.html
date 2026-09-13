@@ -1,33 +1,42 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>cazino</title>
-
-</head>
-<body>
-    <h1>cazino</h1>
-    <div>
-        <form action='/exeat' method="GET">
-            <button type = 'submit'>вход</button>
-        </form>
-    </div>
-    <h2>{{ users_name }}</h2>
-    <h3>{{ depzit }}$</h3>
-    
-    
-    {% if first %}
-        <div id='slots' style = 'font-size: 24px; margin-top: 15px;'>
-            {{first}}{{second}}{{thir}}
-        </div>
-    {% endif %}
-    <br>
-    <form action="/send" method="GET">
-        <label for = 'bid'>ставка</label>
-        <input type='number' id='bid' name='bid' placeholder='ставка' value='10' max='{{depzit}}' required > 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>cazino</title>
+        <link rel='stylesheet' href='{{ url_for("static", filename="css/style.css") }}'>
+        
+    </head>
+    <body>
+        <div class='casino_card'>
+            <div class='logo'>cazino</div>
+            <div>
+                <form action='/exeat' method="GET">
+                    <button class=submit-btn type = 'submit'>выход</button>
+                </form>
+                <h2>{{ users_name }}</h2>
+                {% if depzit == 0 %}    
+                    <div>
+                        <form action='/plus_depzit' method="GET">
+                            <button calss='submit-btn' type = 'submit'>Получить 1000$ бесплатно</button>
+                        </form>
+                    </div>
+                {% endif %}
+                <h3>{{ depzit }}$</h3>
+                {% if first %}
+                <div id='slots' style = 'font-size: 24px; margin-top: 15px;'>
+                    {{first}}{{second}}{{thir}}
+                </div>
+        {% endif %}
         <br>
-        <button type = 'submit'>крутить</button>
-    </form>
+        <form action="/send" method="GET">
+            <div class='input-group'>
+                <label for = 'bid'>ставка</label>
+                <input type='number' id='bid' name='bid' placeholder='ставка' value='50' max='{{depzit}}' required > 
+            </div>
+            <br>
+            <button class='submit-btn' type = 'submit'>крутить</button>
+        </form>
     
         {%with messages = get_flashed_messages() %}
             {% if messages %}
@@ -37,12 +46,30 @@
             {% endif %}
         {% endwith %}
 
-    {% if depzit == 0 %}    
         <div>
-            <form action='/plus_depzit' method="GET">
-                <button type = 'submit'>Получить 1000$ бесплатно</button>
+            <form action='/cube' method="GET">
+                <div class='input-group'>
+                    <link for = 'bid'>ставка</link>
+                    <input type='number' id='bib' name='bib' value='50' max='{{depzit}}' placeholder='выберите ставку' required >
+                </div>
+                <div class='input-group'>
+                    <link for = 'num'>выбери число от 1 до 6</link>
+                    <input type='num' id='num' name='num' placeholder='выберите число' value='1' max='6' required >
+                </div>
+                <button class='submit-btn' type = 'submit'>Бросить кубик</button>
             </form>
+            {% if namber %}
+                <h2>выпало: {{namber}}</h2>
+                <h3></h3>
+            {% endif %}
+            {%with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}      
         </div>
-    {% endif %}
+    </div>
 </body>
 </html>
