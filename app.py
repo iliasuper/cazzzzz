@@ -18,8 +18,7 @@ def save_depzit(email, depzit):
             lines.append(f'depzit: {depzit}')
         with open(file_path, 'w', encoding='utf-8') as f:
             f.writelines(lines)
-        
-                
+             
 @app.route('/')
 def index_():
     return render_template('login.html')
@@ -31,7 +30,6 @@ def login():
     if not email or not password:
         flash('все поля должны быть заполнены!')
         return redirect(url_for('index_'))
-
     folder_name = email.replace('@', '_').replace('.', '_')
     user_folder = os.path.join(folder_name)
     file_path = os.path.join(user_folder, 'credentials.txt')
@@ -134,9 +132,8 @@ def send():
     second = random.choice(list_slots)
     thir = random.choice(list_slots)
     if first == second == thir:
-        
         flash('джекпот!!! поздравляю! вы визунчик')
-        depzit += bid*4
+        depzit += bid*10
     else:
         flash('эх, попробуйте еще раз')
         depzit -= bid
@@ -144,6 +141,36 @@ def send():
     if user_email:
         save_depzit(user_email, depzit)
     return render_template('cazino.html', first=first, second=second, thir=thir,  users_name=user_name, depzit=depzit)
+
+@app.route('/cube', methods=['GET'])
+def cube():
+    user_email = session.get('user_email')
+    user_name = session.get('user_name', 'Игрок')
+    depzit = session.get('depzit', 1000)
+    num = int(request.args.get('num', 1))
+    namber = random.randint(1, 6)
+    bib = int(request.args.get('bid', 6))
+    try:
+        bib = int(request.args.get('bid', 10))
+    except ValueError:
+        flash('введите корректную число')
+        return render_template('cazino.html', depzit=depzit, users_name=user_name)
+    if bib <= 0:
+        flash('ставка должна быть больше 0')
+        return render_template('cazino.html', depzit=depzit, users_name=user_name)
+    elif bib > depzit:
+        flash('у вас недостаточно денег')
+        return render_template('cazino.html', depzit=depzit, users_name=user_name)
+    if num == namber:
+        depzit += bib*6
+        flash('вы выиграли.')
+    else:
+        depzit -= bib
+        flash('увы вы проиграли ставку попробуйте еще.')
+    session['depzit'] = depzit
+    if user_email:
+        save_depzit(user_email, depzit)
+    return render_template('cazino.html', depzit=depzit, users_name=user_name, namber=namber)
 
 @app.route('/plus_depzit', methods=['GET'])
 def plus_depzit():
@@ -163,4 +190,4 @@ def plus_depzit():
     
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True)        
