@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>вход в аккаунт</title>
+    <link rel ='stylesheet' href='{{ url_for("static", filename="css/style.css") }}'>
 </head>
 <body>
-    <h2>вход</h2>
-    <form action="/login" method="POST">
-        <input type="email" name="email" placeholder="email"><br><br>
-        <input type="password" name="password" placeholder="password"><br><br>
-        <button type="submit">войти</button>
-    </form>
+    <div class='casino_card'>
+        <div class='logo'>casino</div>
+        <div class='subtitle'>войти в систему</div>
+        <form action="/login" method="POST">
+            <div class='input-grup'>
+                <link for='email'>email</link>
+                <input type="email" name="email" placeholder="email"><br><br>
+            </div>
+            <div class='input-grup'>
+                 <link for='password'>password</link>
+                <input type="password" name="password" placeholder="password"><br><br>
+            </div>
+
+            <button class='submit-btn' type="submit">войти</button>
+        </form>
         <a href="/register">Перейти на страницу регистрации</a>
+    </div>
 </body>
 </html>
