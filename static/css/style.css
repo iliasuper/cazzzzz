@@ -1,4 +1,4 @@
-body{
+body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -86,12 +86,12 @@ body{
   color: #f5b041;
 }
 .submit-btn:hover {
-  background-color: #ffc93c; /* Немного меняем цвет на более яркий */
-  transform: scale(1.05);    /* Увеличиваем кнопку на 5% */
+  background-color: #ffc93c; 
+  transform: scale(1.05);  
 }
 .login-link {
   color: #ffffff;
   font-size: 14px;
-  text-align: left; /* Прижимаем к левому краю */
+  text-align: left; 
   margin-top: 5px;
 }
