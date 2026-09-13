@@ -4,22 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>регистрация</title>
+    <link rel='stylesheet' href='{{ url_for("static", filename="css/style.css") }}'>
 </head>
 <body>
+    <div class='casino_card'>
+        <div class='logo'>casino</div>
+        <div class='subtitle'>регистарация</div>
+    </div>
+    
     <form action ="/register" method="POST">
-        <input type="text" name="name" placeholder="имя"><br><br>
-        <input type="email" name="email" placeholder="email"><br><br>
-        <input type="password" name="password" placeholder="password"><br><br>
-        <button type="submit">зарегистрироваться</button>
+        <div class='input-group'>
+            <link for='name'>Name</link>
+            <input type="text" name="name" placeholder="имя"><br><br>
+        </div>
+        <div class='input-group'>
+            <link for='email'>email</link>
+            <input type="email" name="email" placeholder="email"><br><br>
+        </div>
+        <div class='input-group'>
+            <link for='name'>password</link>
+            <input type="password" name="password" placeholder="password"><br><br>
+        </div>
+        <button class='submit-btn' type="submit">зарегистрироваться</button>
     </form>
     <br>
-    <p>Уже есть аккаунт? <a href="{{ url_for('index_') }}">Войти</a></p>
+    <div class='login-link'>
+        <p>Уже есть аккаунт? <a href="{{ url_for('index_') }}">Войти</a></p>
+    </div>
     {% set masseges = get_flashed_messages() %}
     {% if messages %}
         {% for message in messages %}
             <p style="color: red">{{ message }}</p>
         {% endfor %}
     {% endif %}
-
 </body>
 </html>
